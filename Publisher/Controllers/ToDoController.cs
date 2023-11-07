@@ -12,7 +12,7 @@ public class ToDoController : ControllerBase
 {
     [HttpPost]
     public IActionResult Add([FromBody] Example example, [FromServices] IPublisherServices services) 
-    {
+    { 
         return services.SendTo(new ToDo(EType.Add, example, DateTime.Now)) ? Ok() : BadRequest();
     }
 

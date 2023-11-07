@@ -43,7 +43,7 @@ namespace Publisher.Services
             {
                 Console.WriteLine($"Failed to publish message: {ex.Message}");
                 return false;
-            }          
+            }
         }
     }
 }
