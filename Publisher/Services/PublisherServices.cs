@@ -1,4 +1,5 @@
 ﻿using Domain.Publisher.Entities;
+using Domain.Publisher.Enums;
 using RabbitMQ.Client;
 using System.Text;
 using System.Text.Json;
@@ -37,6 +38,21 @@ namespace Publisher.Services
                 string json = JsonSerializer.Serialize(data);
                 byte[] bytes = Encoding.UTF8.GetBytes(json);
                 _channel.BasicPublish(exchange: _exchangeName, routingKey: $"{_routingKey}.{data.Type}", basicProperties: null, body: bytes);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to publish message: {ex.Message}");
+                return false;
+            }
+        }
+
+        public bool SendTo(int data,EType type)
+        {
+            try
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes(data.ToString());
+                _channel.BasicPublish(exchange: _exchangeName, routingKey: $"{_routingKey}.{type}", basicProperties: null, body: bytes);
                 return true;
             }
             catch (Exception ex)

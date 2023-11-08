@@ -19,7 +19,7 @@ public class ToDoController : ControllerBase
     [HttpDelete]
     public IActionResult Delete([FromBody] int id, [FromServices] IPublisherServices services)
     {
-        return services.SendTo(new ToDo(EType.Delete, new Example(id,"",""), DateTime.Now)) ? Ok() : BadRequest();
+        return services.SendTo(id,EType.Delete) ? Ok() : BadRequest();
     }
 
     [HttpGet]

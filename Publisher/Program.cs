@@ -10,6 +10,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IExampleRepository, ExampleRepository>();
 builder.Services.AddSingleton<IPublisherServices, PublisherServices>();
 
+builder.Services.AddHostedService<RabbitMqConsumerAdd>();
+builder.Services.AddHostedService<RabbitMqConsumerDelete>();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
